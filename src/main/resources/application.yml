@@ -1,0 +1,45 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: GATEWAY
+
+  cloud:
+    gateway:
+      routes:
+        - id: SEARCH
+          uri: 
+           lb://SEARCH
+          predicates:
+            - Path=/api/flight/**
+
+
+        - id: BOOK
+          uri:
+           lb://BOOK
+          predicates:
+            - Path=/api/book/**
+            
+        - id: CHECKIN
+          uri:
+           lb://CHECKIN
+          predicates:          - Path=/api/checkin/**
+          
+          
+        - id: FARE
+          uri:
+           lb://FARE
+          predicates:
+          - Path=/api/fare/**
+
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost

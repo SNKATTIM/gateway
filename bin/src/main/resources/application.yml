@@ -1,0 +1,31 @@
+server:
+  port: 9191
+
+spring:
+  application:
+    name: Gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: User
+          uri: lb://User
+          predicates:
+            - Path=/us/**
+
+
+        - id: Department
+          uri: lb://Department
+          predicates:
+            - Path=/ds/**
+
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
